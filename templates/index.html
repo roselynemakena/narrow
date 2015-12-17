@@ -8,30 +8,11 @@
     {% block styles %}{% endblock %}
 </head>
 <body>
-    <div class="row">
-        <h1><a href="/">landing page </a></h1>
-
-
-        {{ flash_messages() }}
-
-        {% block content %}
-        <a class="button tiny" href="{{ url_for('blog.add_post_view') }}">Add content</a>
-
-        <ol>
-        {% for admin in admins %}
-            <li>
-                {{ admin.name }}
-            </li>
-        {% endfor %}
-        </ol>
-        {% endblock %}
-    </div>
-
-    <script src="http://cdn.foundation5.zurb.com/foundation.js"></script>
-    <script>
-      $(document).foundation();
-    </script>
-    {% block scripts %}{% endblock %}
+    <center>
+   <h1>landing page</h1>
+   <center>
+    <h2>contributor signup/login</h2>
+    <h2>costumer signup/login</h2>
 </body>
 
-</html>
+</html >

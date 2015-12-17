@@ -81,7 +81,7 @@ class Empty(Flask):
             information available to the client, the status code 404 (Not Found)
             can be used instead.
             """
-            return render_template("http/access_forbidden.html"), 403
+            return render_template("access_forbidden.html"), 403
 
         @app.errorhandler(404)
         def page_not_found(error):
@@ -94,7 +94,7 @@ class Empty(Flask):
             server does not wish to reveal exactly why the request has been refused,
             or when no other response is applicable.
             """
-            return render_template("http/page_not_found.html"), 404
+            return render_template("page_not_found.html"), 404
 
         @app.errorhandler(405)
         def method_not_allowed_page(error):
@@ -107,7 +107,7 @@ class Empty(Flask):
 
         @app.errorhandler(500)
         def server_error_page(error):
-            return render_template("http/server_error.html"), 500
+            return render_template("server_error.html"), 500
 
     def configure_database(self):
         """

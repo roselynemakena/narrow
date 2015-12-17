@@ -1,4 +1,4 @@
-"""# -*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
 from flask.ext import script
 
@@ -18,16 +18,6 @@ if __name__ == "__main__":
     manager.add_command("create_db", commands.CreateDB())
     manager.add_command("drop_db", commands.DropDB())
     manager.add_command("db", commands.DataBase())
+    manager.add_command("routes", commands.Routes())
   #  manager.add_command('db', MigrateCommand)
     manager.run()
-"""
-from flask import Flask 
-
-app=Flask(__name__)
-
-@app.route('/')
-def index():
-    return "index"
-
-
-app.run()    

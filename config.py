@@ -3,7 +3,7 @@
 import logging
 from datetime import timedelta
 
-project_name = "myblog"
+project_name = "Nanrow"
 
 
 class Config(object):
@@ -39,8 +39,10 @@ class Config(object):
     DEBUG_TB_INTERCEPT_REDIRECTS = False
 
     BLUEPRINTS = [
-        'blog'  # or ('blog', {'url_prefix':'/blog'})
-    ]
+       ('customer', {'url_prefix':'/customer'}),                                    
+       ('index', {'url_prefix':'/index'}) ,       
+       ('start', {'url_prefix':'/'})        
+        ]
 
 
 class Dev(Config):

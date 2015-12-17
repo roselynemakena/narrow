@@ -11,7 +11,9 @@ from .models import Admin
 
 app = Blueprint('blog', __name__, template_folder='templates')
 
-@app.route("/")
+
+
+@app.route("/posts")
 def list_posts_view():
     admins = Admin.query.all()
     return render_template('index.html', admins=admins)
