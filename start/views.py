@@ -9,15 +9,17 @@ from database import db
 from customer.models import *
 from index.models import *
 from contributor.models import *
-
+from customer.forms import LoginForm as CustomerLogin
 
 app = Blueprint('start', __name__, template_folder='templates')
 
 
 
+
 @app.route("/")
 def index():
-		
+		customerlogin = CustomerLogin()
+		"""	
 		# create a customer with task  
 		customer_one = Customer("edmond", "mensah", "primerossgh@gmail.com", "password")
 		print "************************************************************************"
@@ -56,6 +58,6 @@ def index():
 		for field in task.form :
 		   	print field.label
 		        
-
-		return render_template('index.html')
+        """
+		return render_template('index.html', customerlogin=customerlogin)
 

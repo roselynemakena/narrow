@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*-
 
-from flask import Blueprint
+from flask import Blueprint, request
 from flask import render_template, flash, redirect, url_for
 from sqlalchemy.exc import IntegrityError
 
 from database import db
 
-from .forms import PostForm
-#from .models import Admin
+from .models import Customer
+
+from forms import LoginForm as CustomerLogin
 
 app = Blueprint('customer', __name__, template_folder='templates')
 
@@ -28,6 +29,18 @@ def dashboard():
 
 @app.route('/payment')
 def payment():
-    return render_template('contributor/dashboard.html')
+    return render_template('customer/dashboard.html')
    
+@app.route('/customerlogin', methods=['GET', 'POST'])
+def customerlogin():
+    customerlogin = CustomerLogin()
+    if request.form :
+        form =CustomerLogin(request.form)
+        if request.method == 'POST' and form.validate():
+            
+            flash('login succesful')
+            return redirect(url_for('customer.list_jobs'))
+    flash('login falied')    
+    return render_template('index.html', customerlogin=customerlogin)     
+
 

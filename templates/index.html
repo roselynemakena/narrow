@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 {% from "macros/_flashing.html" import flash_messages %}
+{% from "macros/_formhelpers.html" import render_field %}
 <html>
 <head>
     <title>Nanrow</title>
     <link rel="stylesheet" href="http://cdn.foundation5.zurb.com/foundation.css" />
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.7.2.js"></script>
-    {% block styles %}{% endblock %}
+    
 </head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <body>
     <center>
    <h1>landing page</h1>
    <center>
     <h2>contributor signup/login</h2>
     <h2>costumer signup/login</h2>
+    
+{% block content %}
+     <form method="post" action="/customer/customerlogin">{{ customerlogin.csrf_token }}
+        <ul>
+            <li>
+                {{ render_field(customerlogin.email) }}
+            </li>
+            <li>
+                {{ render_field(customerlogin.password) }}
+            </li>
+              </ul>
+        <input class="button tiny" type="submit" value="Save" />
+    </form>
+    {% endblock %}
 </body>
 
-</html >
+</html >    
