@@ -7,27 +7,25 @@ from sqlalchemy.exc import IntegrityError
 from database import db
 
 from .forms import PostForm
-#from .models import Admin
+from .models import Contributor
 
-app = Blueprint('customer', __name__, template_folder='templates')
+app = Blueprint('contributor', __name__, template_folder='templates')
 
 #client controller 
 
 @app.route('/jobs')
 def list_jobs():
-    return render_template('customer/list_jobs.html')
+    return render_template('contributor/list_jobs.html')
 
 @app.route('/profile')
 def profile():
-    return render_template('customer/profile.html')
+    return render_template('contributor/profile.html')
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('customer/dashboard.html')
-
+    return render_template('contributor/dashboard.html')
 
 @app.route('/payment')
 def payment():
     return render_template('contributor/dashboard.html')
-   
 

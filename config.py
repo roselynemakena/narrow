@@ -12,7 +12,7 @@ class Config(object):
     USE_X_SENDFILE = False
 
     # DATABASE CONFIGURATION
-    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_dev.sqlite" % project_name
+    SQLALCHEMY_DATABASE_URI = "sqlite:///{0}.db" .format(project_name) 
     SQLALCHEMY_ECHO = False
 
     CSRF_ENABLED = True
@@ -40,7 +40,8 @@ class Config(object):
 
     BLUEPRINTS = [
        ('customer', {'url_prefix':'/customer'}),                                    
-       ('index', {'url_prefix':'/index'}) ,       
+       ('index', {'url_prefix':'/main'}) ,       
+       ('contributor', {'url_prefix':'/contributor'}) ,       
        ('start', {'url_prefix':'/'})        
         ]
 
