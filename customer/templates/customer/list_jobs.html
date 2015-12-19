@@ -1,5 +1,22 @@
-
+<center><h1>task list</h1></center>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <center>
-customers main page<br> 
+	
+        
+customers main page<br>		 
 list customer jobs
+  <a href="{{ url_for('index.logout') }}">logout</a>
+  <a href="{{ url_for('customer.profile') }}">profile page</a>
 </center>
+<b>list of Task </b><br>
+{% for task in customer_task %}
+          <li>{{ task.task_name}} &nbsp | {{task.task_description}} &nbsp | {{ task.task_status}} &nbsp | {{task.status}}</li>
+    {% endfor %} 

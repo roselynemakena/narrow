@@ -10,4 +10,14 @@ class LoginForm(Form):
    password = PasswordField('Password', [validators.DataRequired()])
     
 
-
+class ProfileForm(Form):
+   email = EmailField('Email address', [validators.DataRequired(), validators.Email()])    
+   password = PasswordField('New Password', [
+        validators.Required(),
+        validators.EqualTo('confirm', message='Passwords must match')
+   ])
+   confirm = PasswordField('Repeat Password')
+   password_old = PasswordField('Old Password', [validators.DataRequired()])
+   first_name = TextField('First Name', [validators.DataRequired()])
+   last_name = TextField('Last Name', [validators.DataRequired()])
+   

@@ -1,1 +1,50 @@
-customer profile page
+{% from "macros/_formhelpers.html" import render_field %}
+
+<center><h1>profile page</h1></center>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+ <a href="{{ url_for('index.logout') }}">logout</a>
+  <a href="{{ url_for('customer.profile') }}">profile page</a>
+  <a href="{{ url_for('customer.list_jobs') }}"> list task</a>
+     <form method="post" action="/customer/profile">{{ profileform.csrf_token }}
+        <ul>
+           
+            <li>
+                {{ render_field(profileform.first_name, value = customer.first_name) }}
+            </li>
+            <li>
+                {{ render_field(profileform.last_name, value = customer.last_name) }}
+            </li>
+            <li>
+                {{ render_field(profileform.email, value = customer.email) }}
+            </li>
+            <li>
+                {{ render_field(profileform.password_old) }}
+            </li>
+            <li>
+                {{ render_field(profileform.password) }}
+            </li>
+            <li>
+                {{ render_field(profileform.confirm) }}
+            </li>
+              </ul>
+        <input class="button tiny" type="submit" value="update" />
+    </form>
+   
+
+<span>{{ customer.first_name}}<spam>
+<span>{{ customer.last_name }}</span>
+<span>{{ customer.email }}</span>
+<span>{{ customer.password }}</span>
+<span>{{ customer.last_name }}</span>
+<form method='post' action='customer/profile'>
+
+</form>
