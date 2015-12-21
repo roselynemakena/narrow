@@ -1,1 +1,40 @@
-this is the customer dashboard
+<center><h1>Dashboard</h1></center>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<center>
+	
+        
+customers main page<br>		 
+list customer jobs
+  <a href="{{ url_for('index.logout') }}">logout</a>
+  <a href="{{ url_for('customer.profile') }}">profile page</a>
+  <a href="{{ url_for('customer.list_jobs') }}">List jobs</a>
+</center>
+<h3>Task</h3>
+task info:
+<span>task_id: {{task_id}}</span><br>
+<span>task name :{{customer_task.task_name}}</span><br>
+<span>Description :{{customer_task.task_description}}</span><br>
+<span>task criteria :{{customer_task.task_criteria}}</span><br>
+<span>task status :{{customer_task.status}}</span><br>
+<button>do something to task</button>
+<h3>contributor</h3>
+expected number of contributors :<span>N/A<span><br>
+complete contributions: <span>{{num_complete_contiributions}}</span><br>
+active contributions: <span>{{num_active_contributions}}</span><br>
+list of active contributions:{% for complete in active_contributions %}
+  <span>{{complete.task_id}}</span>
+{% endfor %}<br>
+NUmber of contributors: <span>{{num_contributors}}</span><br>
+percentage complete : <span>{{per_complete}}</span><br>	
+<h3>cost</h3>
+to be pulled from payment integration
+<h3>quality</h3>
+check out test que

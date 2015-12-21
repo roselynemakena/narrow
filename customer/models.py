@@ -13,17 +13,18 @@ class Customer(db.Model):
     last_name = db.Column(db.String(80))
     email  = db.Column(db.String(120))
     password = db.Column(db.String(400)) 
+    delete = db.Column(db.Integer)
     task = db.relationship('Task', backref='customers')
-
+    
 
     
-    def __init__(self, first_name,last_name, email, password, create_date=date.today()):
+    def __init__(self, first_name,last_name, email, password, delete=0, create_date=date.today()):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = password
         self.create_date = create_date
-       
+        self.delete =delete
     
     def __repr__(self):
         return self.first_name          

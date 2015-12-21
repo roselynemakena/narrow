@@ -15,8 +15,11 @@ customers main page<br>
 list customer jobs
   <a href="{{ url_for('index.logout') }}">logout</a>
   <a href="{{ url_for('customer.profile') }}">profile page</a>
+ <BR><button><a href="{{ url_for('index.services')}}">Create a new Task</a></button>
 </center>
 <b>list of Task </b><br>
 {% for task in customer_task %}
-          <li>{{ task.task_name}} &nbsp | {{task.task_description}} &nbsp | {{ task.task_status}} &nbsp | {{task.status}}</li>
-    {% endfor %} 
+   {% if task.delete == 0 %}
+          <li>{{task.id}} &nbsp | <a href="{{url_for('customer.dashboard',task_id=task.id)}}">{{ task.task_name}}</a> &nbsp | {{task.task_description}} &nbsp | {{ task.status}} &nbsp | {{task.create_date}} | cost | <a href="{{url_for('customer.list_jobs',delete=task.id)}}">delete</a> and <a href="">edit</a> task</li><li>{{delete}}</li>
+     {% endif %}     
+  {% endfor %}

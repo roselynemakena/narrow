@@ -13,14 +13,17 @@ class Contributor(db.Model):
     password = db.Column(db.String(120))
     skill_rating = db.Column(db.Text)
     create_date = db.Column(db.DateTime)
+    delete = db.Column(db.Integer)
     contributor_task = db.relationship('ContributorTask', backref='contributors')
 
-    def __init__(self, first_name, last_name, email, password, skill_rating, create_date=date.today()):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-        self.password = password
-        skill_rating = skill_rating
-        create_date = create_date
+    def __init__(self, first_name, last_name, email, password, skill_rating, delete=0, 
+        create_date=date.today()):
+                self.first_name = first_name
+                self.last_name = last_name
+                self.email = email
+                self.password = password
+                self.skill_rating = skill_rating
+                self.delete = delete 
+                create_date = create_date
 
-  
+          

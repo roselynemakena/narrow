@@ -13,15 +13,17 @@ class Task(db.Model):
     task_description = db.Column(db.String(240))
     task_criteria = db.Column(db.String(120))
     status = db.Column(db.Integer)
+    delete = db.Column(db.Integer)
     form =  db.relationship('Form', backref='tasks')
     customer_id = db.Column(db.Integer , db.ForeignKey('customers.id'))
     
     def __init__(self, task_name, task_description, task_criteria, status,
-                 cutomer_id, create_date=date.today()):
+                 cutomer_id, delete=0, create_date=date.today()):
         self.task_name = task_name
         self.task_description = task_description
         self.task_criteria = task_criteria
         self.status = status
+        self.delete = delete
         self.customer_id = cutomer_id
         self.create_date = create_date
 
@@ -39,15 +41,16 @@ class Form(db.Model):
     require = db.Column(db.Text)
     task_id = db.Column(db.Integer , db.ForeignKey('tasks.id'))
     create_date = db.Column(db.DateTime)
-    
+    delete = db.Column(db.Integer)
 
-    def __init__(self, label, value, ftype, condition, require, task_id, create_date=date.today()):
+    def __init__(self, label, value, ftype, condition, require, task_id, delete=0, create_date=date.today()):
         self.label = label
         self.value = value
         self.ftype = ftype
         self.condition = condition
         self.require = require
-        self.task_id =task_id
+        self.task_id = task_id
+        self.delete = delete
         self.create_date = create_date  
 
 
@@ -60,13 +63,14 @@ class ContributorTask(db.Model):
     contributor_id = db.Column(db.Integer , db.ForeignKey('contributors.id'))
     create_date = db.Column(db.DateTime)
     status = db.Column(db.String(8))
+    delete = db.Column(db.Integer)
 
-
-    def __init__(self, customer_id, task_id, contributor_id, status, create_date=date.today()):
+    def __init__(self, customer_id, task_id, contributor_id, status, delete=0, create_date=date.today()):
         self.customer_id = customer_id
         self.task_id = task_id
         self.contributor_id =contributor_id
         self.status = status
+        self.delete = delete
         self.create_date = create_date
     
 

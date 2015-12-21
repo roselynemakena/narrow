@@ -103,7 +103,7 @@ class Empty(Flask):
             identified by the Request-URI. The response MUST include an Allow header
             containing a list of valid methods for the requested resource.
             """
-            return render_template("http/method_not_allowed.html"), 405
+            return render_template("method_not_allowed.html"), 405
 
         @app.errorhandler(500)
         def server_error_page(error):

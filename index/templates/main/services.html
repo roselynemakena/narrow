@@ -1,1 +1,20 @@
-choose one of the many services from here
+<h1>list of services </h1>
+<a href="{{ url_for('index.logout') }}">logout</a>
+  <a href="{{ url_for('customer.profile') }}">profile page</a>
+ <BR><button><a href="{{ url_for('index.services')}}">Create a new Task</a></button>
+<h3>Create a new job</h3>
+<h5>Select a template or start from scratch</h5>
+What would like to do 
+<span>Sentimental analysis</span><br>
+<span>CrowdTesting</span>active<br>
+<span>Data validation</span><br>
+<span><a href="{{url_for('index.prepare_job',task_type='transcription')}}">Transcription</a></span>active upload csv or video<br>
+<span>Image Annotation</span><br>
+<span>Search Relevance</span>active<br>
+<span><a href="{{url_for('index.prepare_job',task_type='collection')}}">Data Collection</a></span>active<br> active 
+
+
+Dont see what you're looking for 
+Tell us what your data needs well get back to you with a recommendation<br>
+<textarea>describe your data goal</textarea>
+
