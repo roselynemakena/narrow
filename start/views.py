@@ -19,8 +19,8 @@ app = Blueprint('start', __name__, template_folder='templates')
 @app.route("/")
 def index():
 		customerlogin = CustomerLogin()
-		"""	
-		# create a customer with task  
+		"""
+		# create a customer with task
 		customer_one = Customer("edmond", "mensah", "primerossgh@gmail.com", "password")
 		print "************************************************************************"
 		print customer_one.id
@@ -36,13 +36,13 @@ def index():
 
 		db.session.add_all([feild_one, feild_two])
 		db.session.commit()
-        
+
 		contributor_one = Contributor("charles", "andor", "kwasiamantin@gmail.com", "password", "{english:high,french:low}")
 
 		db.session.add(contributor_one)
 		db.session.commit()
-		
-		current_task = ContributorTask(customer_one.id, task.id, contributor_one.id, "active") 
+
+		current_task = ContributorTask(customer_one.id, task.id, contributor_one.id, "active")
 
 		db.session.add(current_task)
 		db.session.commit()
@@ -53,11 +53,11 @@ def index():
 			print a.customer_id
 
 
-		#get all task related to a customer 
-		task = Task.query.filter_by(id=1).first()   
+		#get all task related to a customer
+		task = Task.query.filter_by(id=1).first()
 		for field in task.form :
 		   	print field.label
-		        
+
         """
 		return render_template('index.html', customerlogin=customerlogin)
 

@@ -61,6 +61,7 @@ class ContributorTask(db.Model):
     customer_id = db.Column(db.Integer)
     task_id = db.Column(db.Integer)
     contributor_id = db.Column(db.Integer , db.ForeignKey('contributors.id'))
+    geo_code = db.Column(db.String)
     create_date = db.Column(db.DateTime)
     status = db.Column(db.String(8))
     delete = db.Column(db.Integer)
@@ -74,3 +75,16 @@ class ContributorTask(db.Model):
         self.create_date = create_date
     
 
+class Skill(db.Model):
+    _tablebname__='skills'
+    id = db.Column(db.Integer, primary_key=True)
+    skill = db.Column(db.String)
+    num_contributors = db.Column(db.Integer)
+    create_date = db.Column(db.DateTime)
+    delete = db.Column(db.Integer)
+
+    def __init__(self, skill, num_contributors,  delete=0, create_date=date.today()):
+        self.skill = skill
+        self.num_contributors = num_contributors
+        self.create_date = create_date
+        self.delete = delete

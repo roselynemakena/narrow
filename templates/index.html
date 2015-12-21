@@ -13,7 +13,7 @@
     <ul class=flashes>
     {% for message in messages %}
       <li>{{ message }}</li>
-    {% endfor %}
+    {% endfor %}  
     </ul>
   {% endif %}
 {% endwith %}
@@ -34,7 +34,7 @@
                 {{ render_field(customerlogin.password) }}
             </li>
               </ul>
-        <input class="button tiny" type="submit" value="Login" />
+        <input class="button tiny" type="submit" value="login" />
     </form>
     {% endblock %}
 </body>

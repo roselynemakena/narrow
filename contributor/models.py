@@ -24,6 +24,4 @@ class Contributor(db.Model):
                 self.password = password
                 self.skill_rating = skill_rating
                 self.delete = delete 
-                create_date = create_date
-
-          
+                self.create_date = create_date

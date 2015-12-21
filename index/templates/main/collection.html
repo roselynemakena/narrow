@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="jQuery formBuilder: A jQuery plugin for drag and drop form creation">
-  <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="../../static/assets/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="../../static/assets/demo.css">
   <!-- Only include on form edit page -->
   <link rel="stylesheet" type="text/css" media="screen" href="../../static/assets/form-builder.css">
@@ -43,8 +43,8 @@
   
   </div>
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="../../static/assets/jquery.min.js"></script>
+  <script src="../../static/assets/jquery-ui.min.js"></script>
   <!-- Only include on form edit page -->
   <script src="../../static/assets/form-builder.min.js"></script>
   <!-- Only include on form render page -->
@@ -56,7 +56,7 @@
       formContainer = document.getElementById('rendered-form'),
       renderBtn = document.getElementById('render-form-button');
     $(template).formBuilder();
-    
+
     $(renderBtn).click(function(e) {
       e.preventDefault();
       $(template).formRender({
@@ -75,11 +75,12 @@ xhr.addEventListener("readystatechange", function () {
   }
 });
 
-xhr.open("POST", "http://localhost:5000/main/crowd");
+xhr.open("POST", "{{url_for('index.task_data',_external=True)}}");
 xhr.setRequestHeader("cache-control", "no-cache");
 
 xhr.send(data);
     console.log(formContainer);
+    window.location = "{{url_for('index.crowd_selection')}}"
     });
 
   });
@@ -94,8 +95,8 @@ xhr.send(data);
         } else { // Microsoft strikes again
               docNode = new ActiveXObject("Microsoft.XMLDOM");
               docNode.async = false;
-              docNode.loadXML(element); 
-        } 
+              docNode.loadXML(element);
+        }
         element = docNode.firstChild;
     }
 
@@ -131,7 +132,7 @@ xhr.send(data);
 }
 
   </script>
-    
+
 </body>
 
 </html>
