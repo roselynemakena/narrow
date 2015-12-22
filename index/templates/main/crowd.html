@@ -1,10 +1,13 @@
 prepare crowd here
 
+
+{% autoescape false %}
 <span>{{task_data}}</span>
+{% endautoescape %}
 
 {% for skill in skills%}
     {{skill.skill}}
 {% endfor %}
 
 <span>number of contributors: {{ num_contributors }}</span>
-<a href="{{url_for('')}}"></a>
+<a href="{{url_for('payment.customer_payment')}}">make payment </a>

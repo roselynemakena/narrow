@@ -40,9 +40,10 @@ class Config(object):
 
     BLUEPRINTS = [
        ('customer', {'url_prefix':'/customer'}),                                    
-       ('index', {'url_prefix':'/main'}) ,       
-       ('contributor', {'url_prefix':'/contributor'}) ,       
-       ('start', {'url_prefix':'/'})        
+       ('index', {'url_prefix':'/main'}),
+       ('contributor', {'url_prefix':'/contributor'}),
+       ('start', {'url_prefix':'/'}),
+       ('payment', {'url_prefix':'/payment'})
         ]
 
 

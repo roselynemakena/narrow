@@ -1,3 +1,101 @@
+<script>
+    var html2json = (function html2json() {
+        var Util = {
+            div : null,
+            attrs: "id,name,style,class,value,src,href,width,height,title,type".split(","),
+            getJson : function(childNodes, attrs, length) {
+                var result = [];
+                for ( var i = 0, len = childNodes.length; i < len; i++) {
+                    var item = childNodes[i];
+                    if (item.nodeType == 3) {
+                        result.push({
+                            text : item.nodeValue
+                        })
+                    } else if (item.nodeType == 1) {
+                        var obj = {
+                            tag : item.nodeName.toLowerCase(),
+                            attr : {}
+                        };
+                        var flag = false;
+                        //for ie6
+                        if(attrs){
+                            for(var j = 0; j < length; j++){
+                                if(attrs[j] == 'style'){
+                                    var sStyle = item.getAttribute('style').cssText;
+                                    if(sStyle){
+                                        obj.attr["style"] = sStyle;
+                                        flag = true;
+                                    }
+                                }else{
+                                    var attrNode = item.attributes[attrs[j]];
+                                    if(attrNode && attrNode.nodeType === 2){
+                                        var value = attrNode.value;
+                                        if(value && value != 'null'){
+                                            obj.attr[attrs[j]] = value;
+                                            flag = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }else{
+                            if (item.attributes.length) {
+                                for ( var n = 0, l = item.attributes.length; n < l; n++) {
+                                    var value = item.attributes[n].value;
+                                    if(value){
+                                        flag = true;
+                                        obj.attr[item.attributes[n].name] = value;
+                                    }
+                                }
+                            }
+                        }
+                        if(! flag){
+                            delete obj.attr;
+                        }
+                        if (item.childNodes.length < 1) {
+                            var text = item.innerText;
+                            if(text){
+                                obj.text = item.innerText;
+                            }
+                        } else {
+                            obj.child = Util.getJson(item.childNodes, attrs, length);
+                        }
+                        result.push(obj);
+                    } else {
+                        // do nothing
+                    }
+                }
+                return result;
+            }
+        }
+        /**
+         * [html2json]
+         * @param  {[text]} text
+         * @param  {[function]} stringify
+         * @return {[text]}
+         */
+        var html2json = function(text, stringify, attrs) {
+            if (!Util.div) {
+                Util.div = document.createElement('div');
+            }
+            Util.div.innerHTML = text;
+            var ie6 = /MSIE 6/.test(navigator.userAgent), allAttrs, len;
+            if(ie6){
+                allAttrs = Util.attrs;
+                if(Object.prototype.toString.call(stringify).indexOf("Array")){
+                    attrs = stringify;
+                }
+                attrs = attrs || [];
+                for(var i = 0, len = attrs.length; i < len; i++){
+                    allAttrs.push(attrs[i]);
+                }
+                len = allAttrs.length;
+            }
+            var result = Util.getJson(Util.div.childNodes, allAttrs, len);
+            return (window.JSON && JSON.stringify || stringify)(result);
+        };
+        return html2json;
+    })();
+</script>
 <!DOCTYPE html>
 <html>
 
@@ -50,6 +148,7 @@
   <!-- Only include on form render page -->
   <script src="../../static/assets/form-render.min.js"></script>
   <script>
+
   jQuery(document).ready(function($) {
     'use strict';
     var template = document.getElementById('form-builder-template'),
@@ -63,8 +162,9 @@
         container: $(formContainer)
       });
       var data = new FormData();
-      var json = mapDOM(formContainer, true);
-data.append("task_data", json);
+
+var d =window.html2json(formContainer.innerHTML);
+data.append("task_data", d);
 
 var xhr = new XMLHttpRequest();
 xhr.withCredentials = true;
@@ -80,56 +180,11 @@ xhr.setRequestHeader("cache-control", "no-cache");
 
 xhr.send(data);
     console.log(formContainer);
-    window.location = "{{url_for('index.crowd_selection')}}"
+   //window.location = "{{url_for('index.crowd_selection')}}"
     });
 
   });
-  function mapDOM(element, json) {
-    var treeObject = {};
 
-    // If string convert to document Node
-    if (typeof element === "string") {
-        if (window.DOMParser) {
-              parser = new DOMParser();
-              docNode = parser.parseFromString(element,"text/xml");
-        } else { // Microsoft strikes again
-              docNode = new ActiveXObject("Microsoft.XMLDOM");
-              docNode.async = false;
-              docNode.loadXML(element);
-        }
-        element = docNode.firstChild;
-    }
-
-    //Recursively loop through DOM elements and assign properties to object
-    function treeHTML(element, object) {
-        object["type"] = element.nodeName;
-        var nodeList = element.childNodes;
-        if (nodeList != null) {
-            if (nodeList.length) {
-                object["content"] = [];
-                for (var i = 0; i < nodeList.length; i++) {
-                    if (nodeList[i].nodeType == 3) {
-                        object["content"].push(nodeList[i].nodeValue);
-                    } else {
-                        object["content"].push({});
-                        treeHTML(nodeList[i], object["content"][object["content"].length -1]);
-                    }
-                }
-            }
-        }
-        if (element.attributes != null) {
-            if (element.attributes.length) {
-                object["attributes"] = {};
-                for (var i = 0; i < element.attributes.length; i++) {
-                    object["attributes"][element.attributes[i].nodeName] = element.attributes[i].nodeValue;
-                }
-            }
-        }
-    }
-    treeHTML(element, treeObject);
-
-    return (json) ? JSON.stringify(treeObject) : treeObject;
-}
 
   </script>
 

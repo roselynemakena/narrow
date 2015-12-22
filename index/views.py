@@ -4,6 +4,8 @@ from flask import Blueprint, session, request
 from flask import render_template, flash, redirect
 from contributor.models import *
 from index.models import Skill
+from database import db
+from flask.ext.sandboy import Sandboy
 
 app = Blueprint('index', __name__, template_folder='templates')
 
@@ -32,12 +34,12 @@ def prepare_job(task_type):
     return render_template("main/services.html")
 
 
-@app.route("/taskdata", methods=['POST'])
+@app.route("/taskdata", methods=['POST', 'GET'])
 def task_data():
     if login() is True: return redirect(url_for('start.index'))
     session['task_data'] = request.form['task_data']
     print session['task_data']
-    return render_template('main/crowd.html', task_data=session['task_data'])
+    return session['task_data']
 
 
 @app.route("/crowd")
@@ -45,7 +47,9 @@ def crowd_selection():
     skills = db.session.query(Skill)
     contributors = db.session.query(Contributor)
     num_contributors = contributors.count()
-    return render_template('main/crowd.html', task_data=session['task_data'],
+    task_data = session['task_data']
+    session['task_data'] = ""
+    return render_template('main/crowd.html', task_data=task_data,
                            skills=skills, contributors=contributors, num_contributors=num_contributors)
 
 

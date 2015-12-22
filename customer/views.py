@@ -1,12 +1,14 @@
 # -*- coding:utf-8 -*-
 
-from database import db
 from flask import Blueprint, request, session
 from flask import render_template, flash, redirect, url_for
+from sqlalchemy.exc import IntegrityError
+
+from database import db
+from .models import Customer
+from index.models import ContributorTask, Task
 from forms import LoginForm as CustomerLogin
 from forms import ProfileForm
-from index.models import ContributorTask, Task
-from .models import Customer
 
 app = Blueprint('customer', __name__, template_folder='templates')
 
@@ -65,7 +67,7 @@ def dashboard():
     for contributor in contributors:
         count = + 1
         contributions.append(contributor)
-        if int(contributor.status) == 0:
+        if contributor.status == 0:
             complete_contributions.append(contributor)
         else:
             active_contributions.append(contributor)
@@ -108,8 +110,6 @@ def customerlogin():
             if customer:
                 if form.password.data == customer.password:
                     session['customer_id'] = customer.id
-                    customer_task = customer.task
-
                     flash('login succesfully')
                     return redirect(url_for('customer.list_jobs'))
 
@@ -121,6 +121,7 @@ def customerlogin():
 
 def login():
     if not 'customer_id' in session:
+
         flash('please login first')
         return True
     else:
